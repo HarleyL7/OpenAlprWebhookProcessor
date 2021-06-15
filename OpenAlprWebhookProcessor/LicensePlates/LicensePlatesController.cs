@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenAlprWebhookProcessor.LicensePlates.DeletePlate;
+using OpenAlprWebhookProcessor.LicensePlates.GetLicensePlateBreakdown;
 using OpenAlprWebhookProcessor.LicensePlates.GetLicensePlateCounts;
 using OpenAlprWebhookProcessor.LicensePlates.SearchLicensePlates;
 using System;
@@ -20,14 +21,18 @@ namespace OpenAlprWebhookProcessor.LicensePlates
 
         private readonly DeleteLicensePlateGroupRequestHandler _deleteLicensePlateGroupHandler;
 
+        private readonly GetLicensePlateBreakdownHandler _getLicensePlateBreakdownHandler;
+
         public LicensePlatesController(
             SearchLicensePlateHandler searchLicensePlateHandler,
             GetLicensePlateCountsHandler getLicensePlateCountsHandler,
-            DeleteLicensePlateGroupRequestHandler deleteLicensePlateGroupHandler)
+            DeleteLicensePlateGroupRequestHandler deleteLicensePlateGroupHandler,
+            GetLicensePlateBreakdownHandler getLicensePlateBreakdownHandler)
         {
             _searchLicensePlateHandler = searchLicensePlateHandler;
             _getLicensePlateCountsHandler = getLicensePlateCountsHandler;
             _deleteLicensePlateGroupHandler = deleteLicensePlateGroupHandler;
+            _getLicensePlateBreakdownHandler = getLicensePlateBreakdownHandler;
         }
 
         [HttpPost("search")]
@@ -50,13 +55,13 @@ namespace OpenAlprWebhookProcessor.LicensePlates
                 cancellationToken);
         }
         
-        [HttpGet("counts")]
-        public async Task<GetLicensePlateCountsResponse> GetLicensePlateCounts(CancellationToken cancellationToken)
+        [HttpGet("counts/{numberOfDays}")]
+        public async Task<GetLicensePlateBreakdownResponse> GetLicensePlateCounts(
+            int numberOfDays,
+            CancellationToken cancellationToken)
         {
-            var request = new GetLicensePlateCountsRequest();
-
-            return await _getLicensePlateCountsHandler.HandleAsync(
-                request,
+            return await _getLicensePlateBreakdownHandler.HandleAsync(
+                new GetLicensePlateBreakdownRequest(),
                 cancellationToken);
         }
     }

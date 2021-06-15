@@ -37,6 +37,7 @@ using System.Threading.Tasks;
 using OpenAlprWebhookProcessor.Cameras.ZoomAndFocus;
 using System.IO;
 using Microsoft.Net.Http.Headers;
+using OpenAlprWebhookProcessor.LicensePlates.GetLicensePlateBreakdown;
 
 namespace OpenAlprWebhookProcessor
 {
@@ -154,6 +155,7 @@ namespace OpenAlprWebhookProcessor
             services.AddScoped<UpsertAlertsRequestHandler>();
             services.AddScoped<GetSnapshotHandler>();
             services.AddScoped<GetLicensePlateCountsHandler>();
+            services.AddScoped<GetLicensePlateBreakdownHandler>();
             services.AddScoped<DeleteLicensePlateGroupRequestHandler>();
             services.AddScoped<GetWebhookForwardsRequestHandler>();
             services.AddScoped<UpsertWebhookForwardsRequestHandler>();

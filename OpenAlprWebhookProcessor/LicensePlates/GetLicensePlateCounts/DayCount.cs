@@ -6,6 +6,8 @@ namespace OpenAlprWebhookProcessor.LicensePlates.GetLicensePlateCounts
     {
         public DateTimeOffset Date { get; set; }
 
-        public int Count { get; set; }
+        public string Name { get; set; }
+
+        public int Value { get; set; }
     }
 }

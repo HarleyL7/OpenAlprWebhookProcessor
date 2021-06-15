@@ -1,26 +1,35 @@
 ﻿<div style="margin-top:15px;" >
     <div fxLayout="row wrap" fxLayout.lt-lg="column" fxLayoutGap="16px grid" fxLayoutAlign="space-around">
-        <div fxFlex=33% >
-            <mat-card >
+        <div fxFlex=33%>
+            <mat-card>
                 <mat-card-header>
-                    <mat-card-title>Plates Seen</mat-card-title>
-                    <mat-card-subtitle>Last 7 days</mat-card-subtitle>
+                    <mat-card-title>Heatmap</mat-card-title>
+                    <mat-card-subtitle>All time</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
                     <div fxLayoutAlign="center">
-                        <ngx-charts-bar-vertical
-                        [view]="view"
-                        [results]="plateCounts"
-                        [xAxis]="true"
-                        [yAxis]="true"
-                        [showXAxisLabel]="true"
-                        [showYAxisLabel]="true"
-                        [xAxisLabel]="xAxisLabel"
-                        [yAxisLabel]="yAxisLabel"
-                        [showGridLines]="true"
-                        [showDataLabel]="true"
-                        [legend]="false"
-                        [tooltipDisabled]="true"></ngx-charts-bar-vertical>
+                        <h1>Heatmap</h1>
+                        <ngx-charts-heat-map
+                          [min]="0"
+                          [max]="200"
+                          [view]="[1100, 200]"
+                          [results]="plateCounts"
+                          [animations]="true"
+                          [legend]="showLegend"
+                          [gradient]="gradient"
+                          [xAxis]="showXAxis"
+                          [yAxis]="showYAxis"
+                          [showXAxisLabel]="false"
+                          [showYAxisLabel]="false"
+                          [innerPadding]="innerPadding"
+                          [tooltipDisabled]="tooltipDisabled"
+                          [tooltipText]="calendarTooltipText"
+                          [trimXAxisTicks]="trimXAxisTicks"
+                          [trimYAxisTicks]="trimYAxisTicks"
+                          [rotateXAxisTicks]="rotateXAxisTicks"
+                          [maxXAxisTickLength]="maxXAxisTickLength"
+                          [maxYAxisTickLength]="maxYAxisTickLength"
+                        ></ngx-charts-heat-map>
                     </div>
                 </mat-card-content>
             </mat-card>

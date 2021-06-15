@@ -9,7 +9,7 @@ export class HomeService {
 
     constructor(private http: HttpClient) { }
 
-    getPlatesCount(): Observable<DayCounts> {
-        return this.http.get<DayCounts>(`/${this.plateCountsUrl}`);
+    getPlatesCount(numberOfDays: number): Observable<any> {
+        return this.http.get<any>(`/${this.plateCountsUrl}/${numberOfDays}`);
     }
 }

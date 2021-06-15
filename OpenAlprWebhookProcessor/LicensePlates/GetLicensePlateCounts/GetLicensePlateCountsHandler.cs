@@ -21,10 +21,10 @@ namespace OpenAlprWebhookProcessor.LicensePlates.GetLicensePlateCounts
             GetLicensePlateCountsRequest request,
             CancellationToken cancellationToken)
         {
-            var aWeekAgo = DateTimeOffset.UtcNow.AddDays(-7).ToUnixTimeMilliseconds();
+            var requestRange = DateTimeOffset.UtcNow.AddDays(request.NumberOfDays * -1).ToUnixTimeMilliseconds();
 
             var results = await _processerContext.PlateGroups
-                .Where(x => x.ReceivedOnEpoch > aWeekAgo)
+                .Where(x => x.ReceivedOnEpoch > requestRange)
                 .Select(y => y.ReceivedOnEpoch)
                 .ToListAsync(cancellationToken);
 
@@ -35,7 +35,7 @@ namespace OpenAlprWebhookProcessor.LicensePlates.GetLicensePlateCounts
             {
                 parsedResults.Add(new DayCount()
                 {
-                    Count = date.Count(),
+                    Value = date.Count(),
                     Date = date.Key,
                 });
             }

@@ -2,7 +2,6 @@
 import { User } from '@app/_models';
 import { AccountService } from '@app/_services';
 import { HomeService } from './home.service';
-import { DayCount } from './plateCountResponse';
 
 @Component({ templateUrl: 'home.component.html' })
 export class HomeComponent implements OnInit {
@@ -17,26 +16,58 @@ export class HomeComponent implements OnInit {
     }
     
     ngOnInit() {
-        this.homeService.getPlatesCount().subscribe(result => {
-            this.plateCounts = [];
-
-            result.counts.forEach(x => {
-                this.plateCounts.push(
-                {
-                    name: x.date,
-                    value: x.count,
-                });
-            });
+        this.homeService.getPlatesCount(7).subscribe(result => {
+            this.plateCounts = result.weeks;
         });
     }
 
-      // options
+    name = 'Angular';
     showXAxis = true;
     showYAxis = true;
     gradient = false;
-    showLegend = false;
+    showLegend = true;
+    legendTitle = 'Legend';
+    legendPosition = 'right';
     showXAxisLabel = true;
-    xAxisLabel = 'Date';
+    tooltipDisabled = false;
+    showText = true;
+    xAxisLabel = 'Country';
     showYAxisLabel = true;
-    yAxisLabel = 'Plates Seen';
+    yAxisLabel = 'GDP Per Capita';
+    showGridLines = true;
+    innerPadding = '10%';
+    barPadding = 8;
+    groupPadding = 16;
+    roundDomains = false;
+    maxRadius = 10;
+    minRadius = 3;
+    showSeriesOnHover = true;
+    roundEdges: boolean = true;
+    animations: boolean = true;
+    xScaleMin: any;
+    xScaleMax: any;
+    yScaleMin: number;
+    yScaleMax: number;
+    showDataLabel = false;
+    noBarWhenZero = true;
+    trimXAxisTicks = true;
+    trimYAxisTicks = true;
+    rotateXAxisTicks = true;
+    maxXAxisTickLength = 16;
+    maxYAxisTickLength = 16;
+    colorSets: any;
+    colorScheme: any;
+    schemeType: string = 'ordinal';
+    selectedColorScheme: string;
+      // heatmap
+  heatmapMin: number = 0;
+  heatmapMax: number = 12;
+  calendarData: any[] = [];
+
+  calendarTooltipText(c): string {
+    return `
+      <span class="tooltip-label">${c.label} • ${c.cell.date}</span>
+      <span class="tooltip-val">${c.data.toLocaleString()}</span>
+    `;
+  }
 }
